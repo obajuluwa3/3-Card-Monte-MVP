@@ -1,0 +1,59 @@
+#header {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	margin-top: 50px;
+	align-items: center;
+}
+
+#levelBoard {
+	text-align: center;
+	padding-left: 50px;
+}
+
+#scoreBoard {
+	text-align: center;
+	padding-right: 50px;
+}
+
+.title {
+	margin: 0 70px;
+	text-align: center;
+}
+
+#mainSection {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+#cardTable {
+	display: flex;
+	justify-content: center;
+	flex-direction: row;
+}
+
+.playingCard {
+	width: 175px;
+	margin: 50px 15px;
+}
+
+.cardBack {
+	width: 175px;
+	margin: 50px 15px;
+}
+
+.cardBackWrapper {
+	display: none;
+}
+
+.shuffle {
+	display: flex;
+	justify-content: center;
+}
+
+#infoSection {
+	display: flex;
+	justify-content: center;
+	text-align: center;
+}
