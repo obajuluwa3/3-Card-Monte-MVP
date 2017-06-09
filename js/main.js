@@ -99,6 +99,8 @@ var clickListener = function(card) {
     	} else {
     		console.log("Correct!")
     		$("#messages").text("Correct!")
+    		$("#score")[0].innerText++;
+    		
     	}
     //	Partial code for smooth card flip
       // var c = this.classList;
