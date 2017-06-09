@@ -27,10 +27,13 @@
  * you like based on your site design.
  */
 .card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   position: relative;
   float: left;
-  padding-bottom: 25%;
-  width: 25%;
+  padding-bottom: 10%;
+  width: 10%;
   text-align: center;
 }
 
@@ -87,35 +90,14 @@
   line-height: 20px;
 }
 
-/* hover effect */
-.card.effect__hover:hover .card__front {
-  -webkit-transform: rotateY(-180deg);
-          transform: rotateY(-180deg);
-}
-
-.card.effect__hover:hover .card__back {
-  -webkit-transform: rotateY(0);
-          transform: rotateY(0);
-}
-
 /* click effect */
-.card.effect__click.flipped .card__front {
+.flipped .card__front {
   -webkit-transform: rotateY(-180deg);
           transform: rotateY(-180deg);
 }
 
-.card.effect__click.flipped .card__back {
+.flipped .card__back {
   -webkit-transform: rotateY(0);
           transform: rotateY(0);
 }
 
-/* random effect */
-.card.effect__random.flipped .card__front {
-  -webkit-transform: rotateY(-180deg);
-          transform: rotateY(-180deg);
-}
-
-.card.effect__random.flipped .card__back {
-  -webkit-transform: rotateY(0);
-          transform: rotateY(0);
-}
