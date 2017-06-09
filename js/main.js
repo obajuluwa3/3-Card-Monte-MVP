@@ -1,4 +1,6 @@
- 
+var shuffleCount = 0
+var shuffleTimer
+
 var shuffle = function() {
 	var randomNum = Math.floor((Math.random()*2) + 1);
 	if (randomNum === 1) {
@@ -9,6 +11,11 @@ var shuffle = function() {
 		console.log(randomNum)
 		console.log("Switch Right Cards")
 		switchRightCards();
+	}
+	if (shuffleCount === 10) {
+    	stopTime();
+    } else {
+	shuffleCount++;
 	}
 }
 
@@ -41,10 +48,14 @@ var switchRightCards = function() {
 	});
 }
 
+var stopTime = function() {
+	clearInterval(shuffleTimer);
+}
+
 $("#shuffleBtn").click(function(){
     $(".cardBackWrapper").css("display", "block");
     $(".playingCard").css("display", "none");
-    setInterval(function(){shuffle()}, 1000)
+    shuffleTimer = setInterval(function(){shuffle()}, 1000)
 	// switchLeftCards();
 	// switchRightCards();
 });
