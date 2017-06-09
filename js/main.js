@@ -14,6 +14,7 @@ var shuffle = function() {
 	}
 	if (shuffleCount === 10) {
     	stopTime();
+    	$("#messages").text("Click one of the cards to find the Queen of Hearts!")
     } else {
 	shuffleCount++;
 	}
@@ -56,6 +57,8 @@ $("#shuffleBtn").click(function(){
     $(".cardBackWrapper").css("display", "block");
     $(".playingCard").css("display", "none");
     shuffleTimer = setInterval(function(){shuffle()}, 1000)
+    $(this).attr("disabled", "disabled");
+    $("#messages").text("Shuffling...")
 	// switchLeftCards();
 	// switchRightCards();
 });
