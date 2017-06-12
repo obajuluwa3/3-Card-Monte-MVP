@@ -25,6 +25,10 @@
 	text-align: center;
 }
 
+#messageBoard {
+	text-align: center;
+}
+
 #mainSection {
 	display: flex;
 	flex-direction: column;
@@ -83,6 +87,6 @@
 	text-align: center;
 }
 
-#messages {
+#messages span {
 	color: red;
 }

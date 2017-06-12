@@ -1,7 +1,12 @@
-var shuffleCount = 0
-var shuffleTimer
-var targetCard = $("#cardBack2")
-var clicked
+var shuffleCount = 0;
+var shuffleTimer;
+var targetCard;
+var clicked;
+var startTable = $("#cardTable").clone();
+var startMsgBoard = $("#messages").clone();
+var clickedOnce = false
+var clickToReset = false;
+var speedTracker = 800;
 
 
 // Randomly choose which cards to swap
@@ -20,6 +25,8 @@ var shuffle = function() {
     	stopTime();
     	$("#messages").text("Click one of the cards to find the Queen of Hearts!")
     	cards = document.querySelectorAll(".wholeCard");
+    	console.log(targetCard);
+    	clickedOnce = false;
     	prepCards();
     } else {
 	shuffleCount++;
@@ -32,9 +39,9 @@ var switchLeftCards = function() {
 	var card2 = $("#back2 .cardBack");
 	var front1 = $("#card1Wrapper .playingCard")
 	var front2 = $("#card2Wrapper .playingCard")
-	card1.animate({left: '205px'}, function() {
+	card1.animate({left: '205px'},100, function() {
 	});
-	card2.animate({left: '-205px'}, function(){
+	card2.animate({left: '-205px'},100, function(){
 		$("#back2").append(card1);
 		$("#card2Wrapper").append(front1);
 		$(card1).css("left", "0");
@@ -50,9 +57,9 @@ var switchRightCards = function() {
 	var card3 = $("#back3 .cardBack");
 	var front2 = $("#card2Wrapper .playingCard")
 	var front3 = $("#card3Wrapper .playingCard")
-	card2.animate({left: '205px'}, function() {
+	card2.animate({left: '205px'},100, function() {
 	});
-	card3.animate({left: '-205px'}, function() {
+	card3.animate({left: '-205px'},100, function() {
 		$("#back3").append(card2);
 		$("#card3Wrapper").append(front2);
 		$(card2).css("left", "0");
@@ -70,8 +77,8 @@ var stopTime = function() {
 $("#shuffleBtn").click(function(){
     $(".cardBackWrapper").css("display", "block");
     $(".cardFrontWrapper").css("display", "none");
-    shuffleTimer = setInterval(function(){shuffle()}, 450)
-    $(this).attr("disabled", "disabled");
+    shuffleTimer = setInterval(function(){shuffle()}, speedTracker)
+    $(this).attr("disabled", "true");
     $("#messages").text("Shuffling...")
 });
 
@@ -90,22 +97,52 @@ var clickListener = function(card) {
     card.addEventListener( "click", function() {
    	    $(card.firstElementChild).css("display", "block");
 	  	$(card.lastElementChild).css("display", "none");
-	  	console.log(clicked + " was clicked.")
-	  	console.log(targetCard + " is the target card.")
-	  	clicked = $(event.target)
-	  	if (clicked[0] !== targetCard[0]) {
-	  		console.log("Nope! Try Again.")
-    		$("#messages").text("Nope! Try Again.")
-    	} else {
-    		console.log("Correct!")
-    		$("#messages").text("Correct!")
-    		$("#score")[0].innerText++;
-    		
-    	}
-    //	Partial code for smooth card flip
-      // var c = this.classList;
-      // if (c.contains("flipped") !== true) {
-      //   c.add("flipped");
-      // }
+	  	console.log(clicked);
+	  	if (clickToReset === true) {
+	  		resetCards();
+	  	} else {
+		  	targetCard = $("#cardBack2");
+		  	clicked = $(event.target);
+		  	if (clickedOnce === false) {
+		  		if (clicked.parent().parent().index() !== targetCard.parent().parent().index()) {
+		  		console.log("Nope! Game Over.")
+	    		$("#messages").text("Nope! Game Over.")
+	    		$("#score")[0].innerText = 0;
+	    		$("#speed")[0].innerText = 1;
+	    		resetCards();
+	    		} else {
+	    		console.log("Correct!")
+	    		$("#messages").text("Correct!")
+	    		$("#score")[0].innerText++;
+	    			if ($("#score")[0].innerText % 3 === 0 && $("#score")[0].innerText !== 0) {
+	    				$("#speed")[0].innerText++;
+	    				speedTracker = speedTracker - 200
+	    			}
+	    			resetCards();
+	    		}
+		  	} else {
+		  		clickToReset = true;
+		  	}
+	    	clickedOnce = true;
+	    	// Code to reset the cards to the original state
+			// $("#cardTable").replaceWith(startTable.clone());
+			$("#shuffleBtn")[0].disabled = false;
+			shuffleCount = 0
+	    //	Partial code for smooth card flip
+	      // var c = this.classList;
+	      // if (c.contains("flipped") !== true) {
+	      //   c.add("flipped");
+	      // }
+	  }
     });
+}
+
+var resetCards = function() {
+	clickedOnce = false;
+	console.log("clickedOnce is now false")
+	console.log(clickedOnce)
+	setTimeout(function() {$("#messages").text("Reseting cards..."); }, 1000)
+	setTimeout(function() {$("#cardTable").replaceWith(startTable.clone());}, 2000);
+	setTimeout(function() {$("#messages").replaceWith(startMsgBoard.clone()); }, 2000);
+	clickToReset = false;
 }
