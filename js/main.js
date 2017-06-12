@@ -6,12 +6,12 @@ var startTable = $("#cardTable").clone();
 var startMsgBoard = $("#messages").clone();
 var clickedOnce = false
 var clickToReset = false;
-var speedTracker = 800;
+var speedTracker = 250;
 
 
 // Randomly choose which cards to swap
 var shuffle = function() {
-	var randomNum = Math.floor((Math.random()*2) + 1);
+	var randomNum = Math.floor((Math.random()*3) + 1);
 	if (randomNum === 1) {
 		console.log(randomNum)
 		console.log("Switch Left Cards")
@@ -20,6 +20,10 @@ var shuffle = function() {
 		console.log(randomNum)
 		console.log("Switch Right Cards")
 		switchRightCards();
+	} else if (randomNum === 3) {
+		console.log(randomNum)
+		console.log("Switch End Cards")
+		switchEndCards();
 	}
 	if (shuffleCount === 10) {
     	stopTime();
@@ -39,9 +43,9 @@ var switchLeftCards = function() {
 	var card2 = $("#back2 .cardBack");
 	var front1 = $("#card1Wrapper .playingCard")
 	var front2 = $("#card2Wrapper .playingCard")
-	card1.animate({left: '205px'},100, function() {
+	card1.animate({left: '205px'},200, function() {
 	});
-	card2.animate({left: '-205px'},100, function(){
+	card2.animate({left: '-205px'},200, function(){
 		$("#back2").append(card1);
 		$("#card2Wrapper").append(front1);
 		$(card1).css("left", "0");
@@ -57,14 +61,32 @@ var switchRightCards = function() {
 	var card3 = $("#back3 .cardBack");
 	var front2 = $("#card2Wrapper .playingCard")
 	var front3 = $("#card3Wrapper .playingCard")
-	card2.animate({left: '205px'},100, function() {
+	card2.animate({left: '205px'},200, function() {
 	});
-	card3.animate({left: '-205px'},100, function() {
+	card3.animate({left: '-205px'},200, function() {
 		$("#back3").append(card2);
 		$("#card3Wrapper").append(front2);
 		$(card2).css("left", "0");
 		$("#back2").append(card3);
 		$("#card2Wrapper").append(front3);
+		$(card3).css("left", "0");
+	});
+}
+
+// Swap the 2 end cards 1 time
+var switchEndCards = function() {
+	var card1 = $("#back1 .cardBack");
+	var card3 = $("#back3 .cardBack");
+	var front1 = $("#card1Wrapper .playingCard")
+	var front3 = $("#card3Wrapper .playingCard")
+	card1.animate({left: '405px'},200, function() {
+	});
+	card3.animate({left: '-405px'},200, function() {
+		$("#back3").append(card1);
+		$("#card3Wrapper").append(front1);
+		$(card1).css("left", "0");
+		$("#back1").append(card3);
+		$("#card1Wrapper").append(front3);
 		$(card3).css("left", "0");
 	});
 }
