@@ -6,7 +6,7 @@ var startTable = $("#cardTable").clone();
 var startMsgBoard = $("#messages").clone();
 var clickedOnce = false
 var clickToReset = false;
-var speedTracker = 250;
+var speedTracker = 850;
 
 
 // Randomly choose which cards to swap
@@ -33,7 +33,7 @@ var shuffle = function() {
     	clickedOnce = false;
     	prepCards();
     } else {
-	shuffleCount++;
+		shuffleCount++;
 	}
 }
 
@@ -127,15 +127,16 @@ var clickListener = function(card) {
 		  	clicked = $(event.target);
 		  	if (clickedOnce === false) {
 		  		if (clicked.parent().parent().index() !== targetCard.parent().parent().index()) {
-		  		console.log("Nope! Game Over.")
-	    		$("#messages").text("Nope! Game Over.")
-	    		$("#score")[0].innerText = 0;
-	    		$("#speed")[0].innerText = 1;
-	    		resetCards();
+			  		console.log("Nope! Game Over.")
+		    		$("#messages").text("Nope! Game Over.")
+		    		speedTracker = 850;
+		    		$("#score")[0].innerText = 0;
+		    		$("#speed")[0].innerText = 1;
+		    		resetCards();
 	    		} else {
-	    		console.log("Correct!")
-	    		$("#messages").text("Correct!")
-	    		$("#score")[0].innerText++;
+		    		console.log("Correct!")
+		    		$("#messages").text("Correct!")
+		    		$("#score")[0].innerText++;
 	    			if ($("#score")[0].innerText % 3 === 0 && $("#score")[0].innerText !== 0) {
 	    				$("#speed")[0].innerText++;
 	    				speedTracker = speedTracker - 200
@@ -145,16 +146,16 @@ var clickListener = function(card) {
 		  	} else {
 		  		clickToReset = true;
 		  	}
-	    	clickedOnce = true;
-	    	// Code to reset the cards to the original state
-			// $("#cardTable").replaceWith(startTable.clone());
-			$("#shuffleBtn")[0].disabled = false;
-			shuffleCount = 0
-	    //	Partial code for smooth card flip
-	      // var c = this.classList;
-	      // if (c.contains("flipped") !== true) {
-	      //   c.add("flipped");
-	      // }
+    	clickedOnce = true;
+    	// Code to reset the cards to the original state
+		// $("#cardTable").replaceWith(startTable.clone());
+		$("#shuffleBtn")[0].disabled = false;
+		shuffleCount = 0
+    	// Partial code for smooth card flip
+     //  var c = this.classList;
+     //  if (c.contains("flipped") !== true) {
+     //    c.add("flipped");
+     //  }
 	  }
     });
 }

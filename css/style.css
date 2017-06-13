@@ -87,6 +87,10 @@
 	text-align: center;
 }
 
+#messages {
+	height: 40px;
+}
+
 #messages span {
 	color: red;
 }
